@@ -21,6 +21,7 @@ class App extends Component {
               <Route path="/*" component={Navbar} />
               <Route exact path="/" component={Login} />
               <Route path="/admin" component={Checklist} />
+              <Route path="/home" component={Login} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
             </Grid.Column>
