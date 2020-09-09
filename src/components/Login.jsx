@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 
 // POST request function
-import { login } from "./UserFunctions";
+import { login } from "../functions/UserFunctions";
 
 class Login extends Component {
   state = { username: "", password: "", loading: false, message: true };

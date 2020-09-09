@@ -10,11 +10,15 @@ import {
   Input,
 } from "semantic-ui-react";
 
-// API request function
-import { getChecklist } from "./ChecklistFunctions";
-import { deleteChecklist } from "./ChecklistFunctions";
-import { postChecklist } from "./ChecklistFunctions";
-import { postItem } from "./ItemFunctions";
+// API checklist functions
+import {
+  getChecklist,
+  deleteChecklist,
+  postChecklist,
+} from "../functions/ChecklistFunctions";
+
+// API item functions
+import { postItem } from "../functions/ItemFunctions";
 
 class Checklist extends Component {
   state = {
@@ -26,7 +30,16 @@ class Checklist extends Component {
     loadingButton: false,
   };
 
-  // Call GET request checklists
+  componentDidMount() {
+    this.getChecklistData();
+  }
+
+  // Input field change
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  // Get checklist data
   getChecklistData() {
     getChecklist().then((res) => {
       this.setState({ checklists: res });
@@ -34,30 +47,23 @@ class Checklist extends Component {
     });
   }
 
-  componentDidMount() {
-    this.getChecklistData();
-  }
-
   // Button delete clicked
-  handleDeleteComodity = (d) => {
+  handleDeleteChecklist = (d) => {
     this.setState({ loadingButton: true });
 
-    // Commodity data
+    // Checklist data
     const deleteChecklistData = {
       id: d.id,
     };
 
-    // Call POST request for delete commodity
+    // Delete checklist
     deleteChecklist(deleteChecklistData).then((res) => {
       this.getChecklistData();
       this.setState({ loadingButton: false });
     });
   };
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
+  // Button post checklist clicked
   handlePostChecklist = (e) => {
     // Check input
     if (this.state.name !== "") {
@@ -65,7 +71,7 @@ class Checklist extends Component {
         name: this.state.name,
       };
 
-      // Call POST request for login
+      // Post checklist
       postChecklist(checklistData)
         .then((res) => {
           this.getChecklistData();
@@ -76,6 +82,7 @@ class Checklist extends Component {
     }
   };
 
+  // Button post item clicked
   handlePostItem = (e) => {
     // Check input
     if (this.state.checklistId !== "") {
@@ -84,7 +91,7 @@ class Checklist extends Component {
         itemName: this.state.itemName,
       };
 
-      // Call POST request for login
+      // Post item
       postItem(itemData)
         .then((res) => {
           this.getChecklistData();
@@ -124,11 +131,12 @@ class Checklist extends Component {
               {this.state.checklists
                 ? this.state.checklists.map((d, i) => (
                     <Table.Row key={`${d.id}-${i}`}>
-                      {/* Name */}
+                      {/* ID */}
                       <Table.Cell>{d.id}</Table.Cell>
 
-                      {/* Price */}
+                      {/* Name */}
                       <Table.Cell>{d.name}</Table.Cell>
+                      {/* Items */}
                       <Table.Cell>
                         {d.items
                           ? d.items.map((dd, ii) => (
@@ -153,7 +161,7 @@ class Checklist extends Component {
                           icon="close"
                           negative
                           key={d.id}
-                          onClick={() => this.handleDeleteComodity(d)}
+                          onClick={() => this.handleDeleteChecklist(d)}
                         ></Button>
                       </Table.Cell>
                     </Table.Row>
@@ -185,7 +193,7 @@ class Checklist extends Component {
         </Segment>
 
         <Segment>
-          {/* Checklist input */}
+          {/* Item input */}
           <Form>
             <Form.Field>
               <label>checklistId</label>

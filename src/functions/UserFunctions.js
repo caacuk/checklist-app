@@ -2,6 +2,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://18.141.178.15:8080/";
 
+// POST register
 export const register = (newUser) => {
   return axios
     .post("register", {
@@ -18,6 +19,7 @@ export const register = (newUser) => {
     });
 };
 
+// POST login
 export const login = (user) => {
   return axios
     .post("login", {
