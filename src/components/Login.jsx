@@ -9,7 +9,6 @@ import {
   Loader,
   Message,
 } from "semantic-ui-react";
-import jwt_decode from "jwt-decode";
 
 // POST request function
 import { login } from "./UserFunctions";

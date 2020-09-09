@@ -4,14 +4,17 @@ axios.defaults.baseURL = "http://18.141.178.15:8080/";
 
 export const register = (newUser) => {
   return axios
-    .post("users/register", {
-      role_id: newUser.role_id,
-      name: newUser.name,
-      username: newUser.username,
+    .post("register", {
+      email: newUser.email,
       password: newUser.password,
+      username: newUser.username,
     })
     .then((response) => {
       console.log("Registered");
+    })
+    .catch((err) => {
+      console.log(err);
+      return "error";
     });
 };
 

@@ -15,8 +15,7 @@ import { register } from "./UserFunctions";
 
 class Register extends Component {
   state = {
-    role_id: 1,
-    name: "",
+    email: "",
     username: "",
     password: "",
     loading: false,
@@ -35,8 +34,7 @@ class Register extends Component {
     // Check input
     if (this.state.name !== "") {
       const user = {
-        role_id: this.state.role_id,
-        name: this.state.name,
+        email: this.state.email,
         username: this.state.username,
         password: this.state.password,
       };
@@ -84,24 +82,12 @@ class Register extends Component {
           {/* Form login */}
           <Form>
             <Form.Field>
-              <label>Role</label>
+              <label>Email</label>
               <Input
                 onChange={this.onChange}
-                value={this.state.role_id}
-                placeholder="Role"
-                name="role_id"
-                type="text"
-                fluid
-                required
-              />
-            </Form.Field>
-            <Form.Field>
-              <label>Name</label>
-              <Input
-                onChange={this.onChange}
-                value={this.state.name}
-                placeholder="Name"
-                name="name"
+                value={this.state.email}
+                placeholder="email"
+                name="email"
                 type="text"
                 fluid
                 required
